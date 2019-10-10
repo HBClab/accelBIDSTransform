@@ -1,0 +1,8 @@
+name: accel
+channels:
+  - defaults
+dependencies:
+  - pandas=0.25.1
+  - pip:
+    - pybids==0.9.4
+    - pycap==0.0.0
