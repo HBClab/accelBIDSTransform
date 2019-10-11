@@ -7,9 +7,9 @@ from pandas import ExcelFile
 from datetime import datetime
 
 # This function returns the session id and project for a given lab id and date
-def excel_lookup(lab_id, date):
+def excel_lookup(lab_id, date, excel_file):
     
-    df = pd.read_excel('ActiGraph_analysis_summary.xlsx')
+    df = pd.read_excel(excel_file)
     
     # convert all ID's to strings
     df.LabID = df.LabID.astype(str)

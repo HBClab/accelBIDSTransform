@@ -3,7 +3,7 @@ move/rename the raw datafiles to their respective
 project folders with BIDS naming convention.
 """
 
-import utils
+from . import utils
 from bids import BIDSLayout
 from bids.tests import get_test_data_path
 import os
