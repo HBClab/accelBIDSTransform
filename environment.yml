@@ -3,6 +3,9 @@ channels:
   - defaults
 dependencies:
   - pandas=0.25.1
+  - xlrd=1.2.0
+  - flake8=3.7.8
+  - pytest=5.2.1
   - pip:
     - pybids==0.9.4
-    - pycap==0.0.0
+    - pycap==1.0.2
