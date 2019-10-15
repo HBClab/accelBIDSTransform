@@ -11,8 +11,7 @@ def get_date(old_file_name):
     
     # Assume format <lab-id> (YYYY-MM-DD)RAW.csv
     date_extracted = re.search(r"\(.+\)", old_file_name).group(0)[1:-1]
-    year_month_day = date_extracted.split('-')
-    formatted_date = datetime(int(year_month_day[0]), int(year_month_day[1]), int(year_month_day[2]))
+    formatted_date = datetime.strptime(date_extracted, "%Y-%m-%d")
     return( formatted_date )
 
 # This function extracts the lab id from the old accelerometer file naming scheme
@@ -21,8 +20,9 @@ def get_lab_id(old_file_name):
 
 # This function returns the root data path for storing project data
 def get_test_data_path(project):
-    project_dir = os.path.join('\\vosslabhpc\Projects', project)
+
+    project_dir = os.path.join('vosslabhpc', 'Projects', project)
     exp_dir = os.path.join(project_dir, '3-Experiment')
-    data_dir = os.path.join(exp_dir, '2-data')
-    bids_dir = os.path.join(data_dir, 'bids')
+    data_dir = os.path.join(exp_dir, '2-Data')
+    bids_dir = os.path.join(data_dir, 'BIDS')
     return(bids_dir)
