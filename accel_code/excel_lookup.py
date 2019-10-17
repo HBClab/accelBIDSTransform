@@ -14,8 +14,33 @@ def excel_lookup(lab_id, date, excel_file):
     
     # convert all ID's to strings
     df.LabID = df.LabID.astype(str)
-    sess = df[( df['LabID'].str.contains(lab_id) ) & ( df['File date'] == date )]
-    sess_id = str(sess['LabID'].values[0].split('_')[1])
-    project = str(sess['Project'].values)[2:-2]
     
-    return sess_id, project
+    try:
+        ses = df[( df['LabID'].str.contains(lab_id) ) & ( df['File date'] == date )]
+        
+        if len(ses.index) > 1:
+            raise IndexError("{lab_id}: {date} has multiple entries in excel file".format(lab_id=lab_id, date=date))
+        
+        project = str(ses['Project'].values)[2:-2]
+
+        if project == 'EXTEND':
+            ses_id = str(ses['LabID'].values[0].split('_')[1])
+        elif project == 'BIKE-Pre':
+            ses_id = 'pre'
+        elif project == 'BIKE-Post':
+            ses_id = 'post'
+        elif project == 'BETTER':
+            ses_id = 'pre'
+        elif project == 'AMBI':
+            ses_id = None
+        elif project == 'PACR':
+            ses_id = None
+        elif project == 'ALERT':
+            ses_id = None
+        elif project == 'Normative':
+            ses_id = None
+    
+    except:
+        raise ValueError("{lab_id}: {date} is not found in excel file")
+    
+    return ses_id, project
