@@ -26,7 +26,7 @@ def bids_transform(target_project, sub_id, ses_id):
         new_file_name = build_path(entities, 'sub-{subject}/[ses-accel{ses}/]beh/sub-{subject}[_ses-{ses}]_{suffix}.{extension}')
 
     elif (target_project == 'BIKE-Pre') or (target_project == 'BIKE-Post'):
-        mod_sub_id = utils.bike_atrain_dict[sub_id]
+        sub_id = utils.bike_atrain_dict[sub_id]
         new_file_name = build_path(entities, 'sub-{subject}/[ses-{ses}/]beh/sub-{subject}[_ses-{ses}]_{suffix}.{extension}')
 
     else:
