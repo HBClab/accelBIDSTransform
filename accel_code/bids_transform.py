@@ -15,19 +15,24 @@ def bids_transform(target_project, sub_id, ses_id):
 
     data_path = utils.get_test_data_path(target_project)
 
-    if target_project == 'BETTER':
-        sub_id = 'GE' + sub_id
-
     entities = {
     'subject': sub_id,
     'ses': ses_id,
     'suffix': 'accel',
     'extension': 'csv'
     }
-    
-    # This should give something like: sub-01/func/sub-01_ses-5_accel.csv
-    new_file_name = build_path(entities, 'sub-{subject}/[ses-{ses}/]beh/sub-{subject}[_ses-{ses}]_{suffix}.{extension}')
 
+    if target_project == 'EXTEND':
+        new_file_name = build_path(entities, 'sub-{subject}/[ses-accel{ses}/]beh/sub-{subject}[_ses-{ses}]_{suffix}.{extension}')
+
+    elif (target_project == 'BIKE-Pre') or (target_project == 'BIKE-Post'):
+        mod_sub_id = utils.bike_atrain_dict[sub_id]
+        new_file_name = build_path(entities, 'sub-{subject}/[ses-{ses}/]beh/sub-{subject}[_ses-{ses}]_{suffix}.{extension}')
+
+    else:
+        # This should give: sub-01/ses-5/beh/sub-01_ses-5_accel.csv
+        new_file_name = build_path(entities, 'sub-{subject}/[ses-{ses}/]beh/sub-{subject}[_ses-{ses}]_{suffix}.{extension}')
+    
     new_file_location = os.path.join(data_path, new_file_name)
     
     return(new_file_location)

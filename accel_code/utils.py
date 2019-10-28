@@ -16,6 +16,20 @@ project_dict = {'EXTEND':{'redcap': 'extend_id', 'vosslabhpc': 'BikeExtend'},
     'Normative':{'redcap': 'normative_id', 'vosslabhpc': 'NormativeSample'}
 }
 
+bike_atrain_dict = {'161':'GEA161', '270':'GEA270', '290':'GEA290', '307':'GEA307',
+    '311':'GEA311', '316':'GEA316', '351':'GEA351', '357':'GEA357', '383':'GEA383',
+    '392':'GEA392', '457':'GEA457', '487':'GEA487', '514':'GEA514', '289':'GEP289',
+    '291':'GEP291', '295':'GEP295', '326':'GEP326', '327':'GEP327', '360':'GEP360',
+    '374':'GEP374', '381':'GEP381', '385':'GEP385', '472':'GEP472', '484':'GEP484',
+    '511':'GEP511', '529':'GEP529', '142':'SEA142', '225':'SEA225', '228':'SEA228',
+    '247':'SEA247', '1001':'SEH1001', '1002':'SEH1002', '1011':'SEA1011',
+    '1015':'SEA1015', '1020':'SEH1020', '1028':'SEH1028', '1066':'SEH1066',
+    '1086':'SEH1086', '015':'SEN015', '055':'SEN055', '075':'SEN075', '090':'SEN090',
+    '202':'SEP202', '206':'SEP206', '223':'SEP223', '252':'SEP252'
+}
+
+
+
 # This function formats the date so it can be used in excel_lookup
 def get_date(old_file_name):
     
@@ -39,6 +53,22 @@ def get_test_data_path(project):
             '3-Experiment',
             '2-data',
             'bids')
+    elif (project == 'BIKE-Pre') or (project == 'BIKE-Post'):
+        bids_dir = os.path.join(
+            'vosslabhpc',
+            'Projects',
+            project_dict[project]['vosslabhpc'],
+            'Imaging',
+            'BIDS')
+    elif project == 'AMBI':
+        bids_dir = os.path.join(
+            'vosslabhpc',
+            'Projects',
+            project_dict[project]['vosslabhpc'],
+            '3-Experiment',
+            '2-Data',
+            'Imaging',
+            'BIDS')
     else:
         bids_dir = os.path.join(
             'vosslabhpc',

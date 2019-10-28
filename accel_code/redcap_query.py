@@ -18,4 +18,7 @@ def redcap_query(lab_number, project_name, api_key):
     sub_id_df = project.export_records(fields=wanted_field_names, format='df')
     subject_id = str( int( sub_id_df.loc[lab_number, wanted_field_names[1]] ) )
     
-    return( subject_id )
+    if project_name == 'BETTER':
+        subject_id = 'GE' + subject_id
+
+    return(subject_id)
