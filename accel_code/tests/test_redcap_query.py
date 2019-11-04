@@ -42,13 +42,13 @@ class MockProject:
 @pytest.mark.parametrize("lab_id,project,expected_participant_id",
                          [
                              (45, "ALERT", "21"),
-                             (157, "PACR", "controlSE051"),
+                             (157, "PACR", "51"),
                              (472, "Normative", "3795"),
-                             (512, "Bike_Pre", "SEA142"),
-                             (176, "AMBI", "21"),
-                             (517, "Bike_Post", "SEP202"),
-                             (78, "BETTER", "GE120014"),
-                             (827, "EXTEND", "2103"),
+                             (512, "BIKE_Pre", "142"),
+                             (176, "AMBI", "021"),
+                             (517, "BIKE_Post", "202"),
+                             (78, "BETTER", "120014"),
+                             (827, "EXTEND", "2103")
                          ])
 def test_redcap_query(lab_id, project, expected_participant_id, monkeypatch):
     monkeypatch.setattr(redcap, "Project", MockProject)

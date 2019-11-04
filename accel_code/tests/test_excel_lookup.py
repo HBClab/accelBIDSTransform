@@ -10,11 +10,11 @@ from ..excel_lookup import excel_lookup
                              ("45", None, "ALERT", "2016-03-19"),
                              ("157", None, "PACR", "2015-08-22"),
                              ("472", None, "Normative", "2015-07-29"),
-                             ("512", "pre", "Bike_Pre", "2015-08-08"),
+                             ("512", "pre", "BIKE_Pre", "2015-08-08"),
                              ("176", None, "AMBI", "2017-06-23"),
-                             ("517", "post", "Bike_Post", "2015-12-16"),
+                             ("517", "post", "BIKE_Post", "2015-12-16"),
                              ("78", "pre", "BETTER", "2018-07-20"),
-                             ("827", "3", "EXTEND", "2018-11-29"),
+                             ("827", "3", "EXTEND", "2018-11-29")
                          ])
 def test_excel_lookup(participant, expected_ses_id, expected_project, date_str):
     date = datetime.strptime(date_str, "%Y-%m-%d")
