@@ -1,0 +1,11 @@
+language: python
+
+services:
+  - docker
+
+before_install:
+  - docker build -t hbclab/accel .
+
+script:
+  - docker run --entrypoint /bin/bash hbclab/accel -c ". activate accel; pytest /home/coder/project"
+
