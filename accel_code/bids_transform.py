@@ -3,31 +3,56 @@ move/rename the raw datafiles to their respective
 project folders with BIDS naming convention.
 """
 
-from . import utils
-from bids import BIDSLayout
-from bids.tests import get_test_data_path
+from accel_code import utils
+from bids.layout.writing import build_path
 import os
 
-# This function takes in the old file name, information from redcap, and project name
-# to return a bids formatted file name
-def bids_transform(target_project, sub_id, sess_id):
+
+# This function takes in the old file name, information from redcap,
+# and project name to return a bids formatted file name
+def bids_transform(target_project, sub_id, ses_id):
 
     data_path = utils.get_test_data_path(target_project)
 
-    # Initialize the layout
-    layout = BIDSLayout(data_path)
+    if target_project == 'EXTEND':
+        new_file_name = build_path(
+            utils.get_bids_entities(sub_id, ses_id),
+            ('sub-{subject}/[ses-accel{ses}/]beh/sub-{subject}'
+                '[_ses-accel{ses}]_{suffix}.{extension}')
+            )
 
-    entities = {
-    'subject': sub_id,
-    'ses': sess_id,
-    'suffix': 'accel',
-    'extension': 'csv'
-    }
-    
-    # This should give something like: sub-01/func/sub-01_ses-5_accel.csv
-    new_file_name = layout.build_path(entities)
+    elif target_project == 'BETTER':
+        sub_id = 'GE' + sub_id
+        new_file_name = build_path(
+            utils.get_bids_entities(sub_id, ses_id),
+            ('sub-{subject}/[ses-{ses}/]beh/sub-{subject}'
+                '[_ses-{ses}]_{suffix}.{extension}')
+            )
+
+    elif (target_project == 'BIKE_Pre') or (target_project == 'BIKE_Post'):
+        sub_id = utils.bike_atrain_dict[sub_id]
+        new_file_name = build_path(
+            utils.get_bids_entities(sub_id, ses_id),
+            ('sub-{subject}/[ses-{ses}/]beh/sub-{subject}'
+                '[_ses-{ses}]_{suffix}.{extension}')
+            )
+
+    elif target_project == 'PACR':
+        sub_id = utils.pacr_dict[sub_id]
+        new_file_name = build_path(
+            utils.get_bids_entities(sub_id, ses_id),
+            ('sub-{subject}/[ses-{ses}/]beh/sub-{subject}'
+                '[_ses-{ses}]_{suffix}.{extension}')
+            )
+
+    else:
+        # This should give: sub-01/ses-5/beh/sub-01_ses-5_accel.csv
+        new_file_name = build_path(
+            utils.get_bids_entities(sub_id, ses_id),
+            ('sub-{subject}/[ses-{ses}/]beh/sub-{subject}'
+                '[_ses-{ses}]_{suffix}.{extension}')
+            )
 
     new_file_location = os.path.join(data_path, new_file_name)
-    
-    return(new_file_location)
 
+    return(new_file_location)
