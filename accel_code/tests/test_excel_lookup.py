@@ -8,7 +8,7 @@ from ..excel_lookup import excel_lookup
 @pytest.mark.parametrize("participant,expected_ses_id,expected_project,date_str",
                          [
                              ("45", None, "ALERT", "2016-03-19"),
-                             ("157", None, "PACR", "2015-08-22"),
+                             ("157", "pre", "PACR", "2015-08-22"),
                              ("472", None, "Normative", "2015-07-29"),
                              ("512", "pre", "BIKE_Pre", "2015-08-08"),
                              ("176", None, "AMBI", "2017-06-23"),

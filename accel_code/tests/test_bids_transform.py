@@ -9,9 +9,9 @@ from ..bids_transform import bids_transform
         ("ALERT", "21", None,
          ('vosslabhpc/Projects/ALERT/3-Experiment/2-Data/BIDS/'
           'sub-21/beh/sub-21_accel.csv')),
-        ("PACR", "51", None,
+        ("PACR", "51", "pre",
          ('vosslabhpc/Projects/PACR-AD/Imaging/BIDS/'
-          'sub-controlSE051/beh/sub-controlSE051_accel.csv')),
+          'sub-controlSE051/ses-pre/beh/sub-controlSE051_ses-pre_accel.csv')),
         ("Normative", "3795", None,
          ('vosslabhpc/Projects/NormativeSample/3-Experiment/2-Data/BIDS/'
           'sub-3795/beh/sub-3795_accel.csv')),

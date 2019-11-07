@@ -114,6 +114,14 @@ def get_test_data_path(project):
             '3-Experiment',
             '2-data',
             'bids')
+    elif project == 'EXTEND':
+        bids_dir = os.path.join(
+            'vosslabhpc',
+            'Projects',
+            project_dict[project]['vosslabhpc'],
+            '3-Experiment',
+            '2-Data',
+            'BIDS')
     elif (project == 'BIKE_Pre') or (project == 'BIKE_Post'):
         bids_dir = os.path.join(
             'vosslabhpc',
@@ -138,6 +146,7 @@ def get_test_data_path(project):
             'Imaging',
             'BIDS')
     else:
+        # Path doesn't exist
         bids_dir = os.path.join(
             'vosslabhpc',
             'Projects',

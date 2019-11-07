@@ -39,10 +39,10 @@ def excel_lookup(lab_id, date, excel_file):
             # All accelerometer data is stored in pre directory for this study
             ses_id = 'pre'
 
-        elif project == 'AMBI':
-            ses_id = None
-
         elif project == 'PACR':
+            ses_id = 'pre'
+
+        elif project == 'AMBI':
             ses_id = None
 
         elif project == 'ALERT':
