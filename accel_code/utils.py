@@ -5,6 +5,7 @@ helper functions
 from datetime import datetime
 import re
 import os
+from shutil import copyfile
 
 project_dict = {'EXTEND': {'redcap': 'extend_id', 'vosslabhpc': 'BikeExtend'},
                 'BETTER': {'redcap': 'better_id', 'vosslabhpc': 'BETTER'},
@@ -46,7 +47,7 @@ pacr_dict = {'140': 'controlGE140', '154': 'controlGE154',
              '24': 'controlSE024', '31': 'controlSE031',
              '39': 'controlSE039', '44': 'controlSE044',
              '45': 'controlSE045', '51': 'controlSE051',
-             '52': 'controlSE052', '65': 'controlSE065', 
+             '52': 'controlSE052', '65': 'controlSE065',
              '76': 'controlSE076', '78': 'controlSE078',
              '83': 'controlSE083', '86': 'controlSE086',
              '87': 'controlSE087', '92': 'controlSE092',
@@ -159,5 +160,12 @@ def get_test_data_path(project):
 
 
 # This function makes the bids-formatted directory for the accelerometer file
-def make_directory(path):
-    os.makedirs(path, exist_ok=True)
+def make_directory(old_path, new_path, replace):
+    if os.path.exists(new_path):
+        if replace == 'no':
+            raise ValueError('replace option was not specified and output file exists', new_path)
+        if replace == 'yes':
+            os.remove(new_path)
+            copyfile(old_path, new_path)
+    else:
+        copyfile(old_path, new_path)
