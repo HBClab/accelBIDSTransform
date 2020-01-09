@@ -5,6 +5,7 @@ helper functions
 from datetime import datetime
 import re
 import os
+from shutil import copyfile
 
 project_dict = {'EXTEND': {'redcap': 'extend_id', 'vosslabhpc': 'BikeExtend'},
                 'BETTER': {'redcap': 'better_id', 'vosslabhpc': 'BETTER'},
@@ -46,7 +47,7 @@ pacr_dict = {'140': 'controlGE140', '154': 'controlGE154',
              '24': 'controlSE024', '31': 'controlSE031',
              '39': 'controlSE039', '44': 'controlSE044',
              '45': 'controlSE045', '51': 'controlSE051',
-             '52': 'controlSE052', '65': 'controlSE065', 
+             '52': 'controlSE052', '65': 'controlSE065',
              '76': 'controlSE076', '78': 'controlSE078',
              '83': 'controlSE083', '86': 'controlSE086',
              '87': 'controlSE087', '92': 'controlSE092',
@@ -91,7 +92,8 @@ def ambi_adjust(sub_id):
 
 
 # This function formats the date so it can be used in excel_lookup
-def get_date(old_file_name):
+def get_date(old_file_path):
+    old_file_name = os.path.basename(old_file_path)
     # Assume format <lab-id> (YYYY-MM-DD)RAW.csv
     date_extracted = re.search(r"\(.+\)", old_file_name).group(0)[1:-1]
     formatted_date = datetime.strptime(date_extracted, "%Y-%m-%d")
@@ -99,7 +101,8 @@ def get_date(old_file_name):
 
 
 # This function extracts the lab id from the old accelerometer file name
-def get_lab_id(old_file_name):
+def get_lab_id(old_file_path):
+    old_file_name = os.path.basename(old_file_path)
     return(old_file_name.split(' ')[0])
 
 
@@ -108,22 +111,26 @@ def get_test_data_path(project):
 
     if project == 'BETTER':
         bids_dir = os.path.join(
-            'vosslabhpc',
             'Projects',
             project_dict[project]['vosslabhpc'],
             '3-Experiment',
             '2-data',
             'bids')
+    elif project == 'EXTEND':
+        bids_dir = os.path.join(
+            'Projects',
+            project_dict[project]['vosslabhpc'],
+            '3-Experiment',
+            '2-Data',
+            'BIDS')
     elif (project == 'BIKE_Pre') or (project == 'BIKE_Post'):
         bids_dir = os.path.join(
-            'vosslabhpc',
             'Projects',
             project_dict[project]['vosslabhpc'],
             'Imaging',
             'BIDS')
     elif project == 'AMBI':
         bids_dir = os.path.join(
-            'vosslabhpc',
             'Projects',
             project_dict[project]['vosslabhpc'],
             '3-Experiment',
@@ -132,14 +139,13 @@ def get_test_data_path(project):
             'BIDS')
     elif project == 'PACR':
         bids_dir = os.path.join(
-            'vosslabhpc',
             'Projects',
             project_dict[project]['vosslabhpc'],
             'Imaging',
             'BIDS')
     else:
+        # Path doesn't exist
         bids_dir = os.path.join(
-            'vosslabhpc',
             'Projects',
             project_dict[project]['vosslabhpc'],
             '3-Experiment',
@@ -150,5 +156,12 @@ def get_test_data_path(project):
 
 
 # This function makes the bids-formatted directory for the accelerometer file
-def make_directory(path):
-    os.makedirs(path, exist_ok=True)
+def make_directory(old_path, new_path, replace):
+    if os.path.exists(new_path):
+        if replace == 'no':
+            raise ValueError('replace option was not specified and output file exists', new_path)
+        if replace == 'yes':
+            os.remove(new_path)
+            copyfile(old_path, new_path)
+    else:
+        copyfile(old_path, new_path)
