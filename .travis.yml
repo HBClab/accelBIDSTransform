@@ -4,8 +4,8 @@ services:
   - docker
 
 before_install:
-  - docker build -t hbclab/accel .
+  - docker build -t hbclab/accel-bids -f Dockerfile_exec .
 
 script:
-  - docker run --entrypoint /bin/bash hbclab/accel -c ". activate accel; pytest /home/coder/project"
+  - docker run --entrypoint /bin/bash hbclab/accel-bids -c ". activate accel; pytest /home/coder/project"
 
