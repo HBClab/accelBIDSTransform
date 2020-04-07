@@ -11,11 +11,14 @@ I assume you have docker installed and are using linux
 
 
 ```
-docker build -t hbclab/accel .
-docker run --rm -it -v ${PWD}:/home/coder/project -p 8080:8080 hbclab/accel
+docker build -t hbclab/accel-dev .
+docker run -it --rm -v ${PWD}:/home/coder/projects -p 127.0.0.1:8080:8080 hbclab/accel-dev
 ```
 
+then visit 0.0.0.0:8080 in your browser
+
 ## Testing the code (manually)
+
 1. Install the conda environment:
 
     - `conda env create -f environment.yml`
@@ -23,6 +26,4 @@ docker run --rm -it -v ${PWD}:/home/coder/project -p 8080:8080 hbclab/accel
 2. install the accel_code locally as an editable package:
 
     - `pip install -e .`
-
-
 
