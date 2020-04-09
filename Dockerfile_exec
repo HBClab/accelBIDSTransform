@@ -26,8 +26,6 @@ COPY . /home/coder/projects/
 
 RUN conda env create -f environment.yml 
 
-# Ensures each shell created uses the correct conda env, important since each image layer uses a new shell instance
-SHELL ["conda", "run", "-n", "accel", "/bin/bash", "-c"]
 RUN bash -c 'conda init && . /home/coder/.bashrc && . activate accel && pip install -e /home/coder/projects'
 
 # Run as executable
