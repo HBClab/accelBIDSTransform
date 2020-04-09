@@ -1,0 +1,32 @@
+# Base image
+FROM ubuntu:18.04
+
+USER root
+
+# Get base utilities
+RUN apt-get update \
+    && apt-get -y install curl \
+    && chmod 777 /opt
+
+# Conda install
+ENV PATH="/opt/miniconda-latest/bin:$PATH"
+
+RUN export PATH="/opt/miniconda-latest/bin:$PATH" \
+    && conda_installer="/tmp/miniconda.sh" \
+    && curl -fsSL --retry 5 -o "$conda_installer" https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+    && bash "$conda_installer" -b -p /opt/miniconda-latest
+
+
+RUN useradd --create-home --shell /bin/bash coder
+USER coder
+RUN mkdir /home/coder/projects
+WORKDIR /home/coder/projects
+
+COPY . /home/coder/projects/
+
+RUN conda env create -f environment.yml 
+
+RUN bash -c 'conda init && . /home/coder/.bashrc && . activate accel && pip install -e /home/coder/projects'
+
+# Run as executable
+ENTRYPOINT ["conda", "run", "-n", "accel", "python", "/home/coder/projects/accel_code/run.py"]

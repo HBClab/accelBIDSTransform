@@ -5,20 +5,19 @@ set -e
 # Generate Dockerfile.
 generate_docker() {
   docker run --rm jdkent/neurodocker:dev generate docker \
-    --base=codercom/code-server:2.1472-vsc1.38.1 \
+    --base=hbclab/accel-bids \
     --pkg-manager=apt \
     --user=coder \
     --workdir="/home/coder" \
     --env "SHELL=/bin/bash" \
-    --copy . /home/coder/project \
-    --miniconda create_env='accel' \
-                yaml_file='/home/coder/project/environment.yml' \
-    --run-bash "conda init && . /home/coder/.bashrc && . activate accel && pip install -e /home/coder/project" \
-    --run 'code-server --install-extension eamodio.gitlens && code-server --install-extension ms-python.python' \
-    --entrypoint 'code-server /home/coder/project'
+    --run "curl -o /tmp/code-server.tar.gz -SL https://github.com/cdr/code-server/releases/download/3.0.2/code-server-3.0.2-linux-x86_64.tar.gz" \
+    --run "mkdir -p /opt/codeserver && tar -xvf /tmp/code-server.tar.gz -C /opt/codeserver --strip-components=1" \
+    --run '/opt/codeserver/code-server --install-extension eamodio.gitlens && /opt/codeserver/code-server --install-extension ms-python.python' \
+    --expose 8080 \
+    --entrypoint '/opt/codeserver/code-server --auth none --host 0.0.0.0 /home/coder/projects'
 
 }
 
 generate_docker > Dockerfile
 
-docker build -t hbclab/accel .
+docker build -t hbclab/accel-dev .
