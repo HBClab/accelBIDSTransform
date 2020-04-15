@@ -9,3 +9,9 @@ before_install:
 script:
   - docker run --entrypoint /bin/bash hbclab/accel-bids -c ". activate accel; pytest /home/coder/projects"
 
+deploy:
+  provider: script
+  script: bash docker_push.sh
+  on:
+    branch: master
+    tags: true
