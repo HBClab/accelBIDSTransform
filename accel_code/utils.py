@@ -162,8 +162,6 @@ def make_directory(old_path, new_path, replace):
             raise ValueError('replace option was not specified and output file exists', new_path)
         if replace == 'yes':
             os.remove(new_path)
-            # Create relevant directories for new file
-            os.makedirs(os.path.dirname(new_path))
             copyfile(old_path, new_path)
     else:
         os.makedirs(os.path.dirname(new_path))
