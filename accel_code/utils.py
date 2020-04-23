@@ -103,7 +103,7 @@ def get_date(old_file_path):
 # This function extracts the lab id from the old accelerometer file name
 def get_lab_id(old_file_path):
     old_file_name = os.path.basename(old_file_path)
-    return(old_file_name.split(' ')[0])
+    return(int(old_file_name.split(' ')[0]))
 
 
 # This function returns the root data path for storing project data
@@ -162,6 +162,9 @@ def make_directory(old_path, new_path, replace):
             raise ValueError('replace option was not specified and output file exists', new_path)
         if replace == 'yes':
             os.remove(new_path)
+            # Create relevant directories for new file
+            os.makedirs(os.path.dirname(new_path))
             copyfile(old_path, new_path)
     else:
+        os.makedirs(os.path.dirname(new_path))
         copyfile(old_path, new_path)
