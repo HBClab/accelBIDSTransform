@@ -42,7 +42,7 @@ def main():
     lab_id = utils.get_lab_id(opts.old_file_path)
     date = utils.get_date(opts.old_file_path)
 
-    ses_id, project = excel_lookup.excel_lookup(lab_id, date, opts.excel_file)
+    ses_id, project = excel_lookup.excel_lookup(lab_id, date, opts.excel_file_path)
 
     sub_id = redcap_query.redcap_query(lab_id, project, opts.api_key)
 
