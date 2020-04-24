@@ -14,7 +14,7 @@ def excel_lookup(lab_id, date, excel_file):
     df.LabID = df.LabID.astype(str)
 
     try:
-        ses = df[(df['LabID'].str.contains(lab_id)) &
+        ses = df[(df['LabID'].str.contains(str(lab_id))) &
                  (df['File date'] == date)]
 
         # Check to make sure no labid/date combo gives more than one result
