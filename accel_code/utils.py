@@ -164,5 +164,5 @@ def make_directory(old_path, new_path, replace):
             os.remove(new_path)
             copyfile(old_path, new_path)
     else:
-        os.makedirs(os.path.dirname(new_path))
+        os.makedirs(os.path.dirname(new_path), exist_ok=True)
         copyfile(old_path, new_path)
