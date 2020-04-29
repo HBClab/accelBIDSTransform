@@ -8,7 +8,7 @@
 # 
 #     https://github.com/kaczmarj/neurodocker
 
-FROM hbclab/accel-bids
+FROM hbclab/accel-bids:unstable
 
 USER root
 
