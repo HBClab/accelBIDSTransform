@@ -5,7 +5,7 @@ set -e
 # Generate Dockerfile.
 generate_docker() {
   docker run --rm jdkent/neurodocker:dev generate docker \
-    --base=hbclab/accel-bids \
+    --base=hbclab/accel-bids:unstable \
     --pkg-manager=apt \
     --user=coder \
     --workdir="/home/coder" \
