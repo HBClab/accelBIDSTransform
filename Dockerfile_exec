@@ -42,5 +42,9 @@ RUN conda env create -f environment.yml
 
 RUN bash -c 'conda init && . /home/coder/.bashrc && . activate accel && pip install -e /home/coder/projects'
 
+USER root
+RUN chown -R coder:coder /home/coder/projects
+
+USER coder
 # Run as executable
 ENTRYPOINT ["/neurodocker/startup.sh", "accel_transform"]
