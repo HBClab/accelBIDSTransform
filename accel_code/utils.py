@@ -159,10 +159,14 @@ def get_test_data_path(project):
 def make_directory(old_path, new_path, replace):
     if os.path.exists(new_path):
         if replace == 'no':
-            raise ValueError('replace option was not specified and output file exists', new_path)
+            print('replace option was set to no and output file exists', new_path)
+            return False
+
         if replace == 'yes':
             os.remove(new_path)
             copyfile(old_path, new_path)
+            return True
     else:
         os.makedirs(os.path.dirname(new_path), exist_ok=True)
         copyfile(old_path, new_path)
+        return True

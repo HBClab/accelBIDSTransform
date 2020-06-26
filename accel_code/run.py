@@ -95,13 +95,14 @@ def main():
 
     # copy the file to the new project specific location
     try:
-        utils.make_directory(opts.old_file_path, new_file_path, opts.replace)
+        file_copied = utils.make_directory(opts.old_file_path, new_file_path, opts.replace)
     except Exception as e:
         msg = "could not copy file: {} ({})"
         logger.exception(msg.format(lab_id, str(date)))
         raise(e)
-
-    logger.info("{of} -> {nf}".format(of=opts.old_file_path, nf=new_file_path))
+    
+    if file_copied:
+        logger.info("{of} -> {nf}".format(of=opts.old_file_path, nf=new_file_path))
 
     return
 
