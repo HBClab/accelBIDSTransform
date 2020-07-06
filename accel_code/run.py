@@ -55,7 +55,7 @@ def main():
     logger = logging.getLogger(__name__)
     logger.level = 10
     # create file handler which logs even debug messages
-    fh = logging.FileHandler(logging_path)
+    fh = logging.FileHandler(logging_path, mode='a')
     fh.setLevel(logging.DEBUG)
     # create console handler with a higher log level
     ch = logging.StreamHandler()
@@ -67,6 +67,8 @@ def main():
     # add the handlers to the logger
     logger.addHandler(fh)
     logger.addHandler(ch)
+    # add new log header
+    logger.info('##########')
 
     # get session and project information
     try:
@@ -100,7 +102,7 @@ def main():
         msg = "could not copy file: {} ({})"
         logger.exception(msg.format(lab_id, str(date)))
         raise(e)
-    
+
     if file_copied:
         logger.info("{of} -> {nf}".format(of=opts.old_file_path, nf=new_file_path))
 
