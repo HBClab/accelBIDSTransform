@@ -68,7 +68,7 @@ def main():
     logger.addHandler(fh)
     logger.addHandler(ch)
     # add new log header
-    logger.info('##########')
+    logger.info('\n##########\n')
 
     # get session and project information
     try:
