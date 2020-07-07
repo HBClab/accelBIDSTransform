@@ -1,0 +1,4 @@
+2020-07-06 13:06:45,142 - accel_code.run - INFO - ##########
+2020-07-06 13:06:45,206 - accel_code.run - INFO - /Users/zoheb/projects/vosslab/accelBIDSTransform/accel_code/tests/data/827 (2018-11-29)RAW.csv -> /Users/zoheb/projects/vosslab/accelBIDSTransform/accel_code/tests/data/vosslabhpc/Projects/BikeExtend/3-Experiment/2-Data/BIDS/sub-2103/ses-accel3/beh/sub-2103_ses-accel3_accel.csv
+2020-07-06 13:06:59,643 - accel_code.run - INFO - ##########
+2020-07-06 13:06:59,741 - accel_code.run - INFO - /Users/zoheb/projects/vosslab/accelBIDSTransform/accel_code/tests/data/827 (2018-11-29)RAW.csv -> /Users/zoheb/projects/vosslab/accelBIDSTransform/accel_code/tests/data/vosslabhpc/Projects/BikeExtend/3-Experiment/2-Data/BIDS/sub-2103/ses-accel3/beh/sub-2103_ses-accel3_accel.csv
