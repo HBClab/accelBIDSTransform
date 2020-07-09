@@ -105,6 +105,8 @@ def main():
 
     if file_copied:
         logger.info("{of} -> {nf}".format(of=opts.old_file_path, nf=new_file_path))
+    else:
+        logger.info("{of} already copied".format(of=opts.old_file_path))
 
     return
 
